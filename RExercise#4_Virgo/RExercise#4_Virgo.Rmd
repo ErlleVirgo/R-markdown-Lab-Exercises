@@ -1,0 +1,189 @@
+---
+title: "RExercise#4_Virgo"
+author: "Erlle Virgo"
+date: "2026-10-15"
+output: html_document
+---
+
+### Part A - Creating Vectors and List:\
+
+##### Question #1:
+##### A factory has a census of its workers. There are 50 workers in total. The following list shows their ages: `34, 28, 22, 36, 27, 18, 52, 39, 42, 29, 35, 31, 27, 22, 37, 34, 19, 20, 57, 49, 50, 37, 46, 25, 17, 37, 43, 53, 41, 51, 35, 24,33, 41, 53, 40, 18, 44, 38, 41, 48, 27, 39, 19, 30, 61, 54, 58, 26, 18.
+
+##### a. Create a vector for the worker's age.
+
+```{r}
+age <- c(34, 28, 22, 36, 27, 18, 52, 39, 42, 29, 35, 31, 27, 22, 37, 34, 19, 20, 57, 49, 50, 37, 46, 25, 17, 37, 43, 53, 41, 51, 35, 24,33, 41, 53, 40, 18, 44, 38, 41, 48, 27, 39, 19, 30, 61, 54, 58, 26, 18)
+```
+
+<br>
+
+##### b. How many data points?
+```{r}
+length(age)
+```
+
+<br>
+
+##### c. Find the minimum and the maximum value of worker’s age.
+
+```{r}
+max(age)
+min(age)
+```
+
+<br>
+
+##### d. Access the 13rd to 18th elements and 33th to 35th elements of worker’s Age.
+
+```{r}
+age[13:18]
+age[33:35]
+```
+
+<br>
+
+##### e. Access all but the 10th, 20th, 30th and 40th elements are not included.
+
+```{r}
+age[-c(10, 20, 30, 40)]
+
+```
+
+<br>
+
+##### f. Modify the 4th, 14th, 24th, and 44th elements with value = 0.
+
+```{r}
+age[c(4,14,24,44)] <- 0
+age
+```
+
+<br>
+
+##### Question #2:
+##### * R has actually lots of built-in datasets.
+##### * For example, the rivers data “gives the lengths (in miles) of 141 “major” rivers in North America, as compiled by the US Geological Survey”.
+##### * Use data(rivers)
+
+##### a. Get the number of elements (length) in rivers, their sum (sum), mean (mean), median(median), variance(var), standard deviation(sd), minimum (min) and maximum (max).
+
+```{r}
+data(rivers)
+
+length(rivers)
+sum(rivers)
+mean(rivers)
+median(rivers)
+var(rivers)
+sd(rivers)
+min(rivers)
+max(rivers)
+```
+
+<br>
+
+###### b. What is the result? The derived result must be in just one(1) vector name.
+
+```{r}
+rivers_list <- c(length = length(rivers),
+sum = sum(rivers),
+mean = mean(rivers),
+median = median(rivers),
+var = var(rivers),
+sd = sd(rivers),
+min = min(rivers),
+max = max(rivers))
+
+rivers_list
+```
+
+<br>
+
+##### Question #3:
+
+##### *The table below gives the 25 most powerful celebrities and their annual pay as ranked by the editions of Forbes magazine and as listed on the Forbes.com website.
+
+<br>
+
+##### a. Create vectors according to the table
+
+```{r}
+
+power <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25)
+
+celebrity <- c("Tom Cruise", "Rolling Stones", "Oprah Winfrey", "U2", "Tiger Woods", "Steven Spielberg", "Howard Stern", "50 Cent", "Cast of the Sopranos", "Dan Brown", "Bruce Springsteen", "Donald Trump", "Muhammad Ali", "Paul McCartney", "George Lucas", "Elton John", "David Letterman", "Phil Mickelson", "J.K Rowling", "Bradd Pitt", "Peter Jackson","Dr. Phil McGraw", "Jay Lenon", "Celine Dion", "Kobe Bryant")
+
+pay <- c(67, 90, 225, 110, 90, 332, 302, 41, 52, 88, 55, 44, 55, 40, 233, 34, 40, 47, 75, 25, 39, 45, 32, 40, 31)
+```
+
+<br>
+
+##### b. Modify the power ranking and pay of J.K. Rowling. Change power ranking to 15 and pay to 90.
+
+```{r}
+power[celebrity == "J.K Rowling"] <- 15
+pay[celebrity == "J.K Rowling"]   <- 90
+```
+
+<br>
+
+##### Question #4:
+##### * Create a list of ten (10) vegetables you ate during your lifetime. If none, just list down the vegetables in your mind.
+
+```{r}
+vegetables <- c("Okra", "Cabbage", "Potato", "Spinach", "Bitter Gourd", "Tomato", "Raddish", "Squash", "Eggplant", "String Beans")
+```
+
+<br>
+
+##### a. Add 2 additional vegetables after tge last vegetables in the list. What is the result?
+
+```{r}
+vegetables <- append(vegetables, list("Mongo Beans", "Carrots"))
+
+vegetables
+```
+
+<br>
+
+##### b. How many datapoints do you have?
+
+```{r}
+# I have 12
+length(vegetables)
+```
+
+<br>
+
+##### c. Add 4 additional vegetables after index 5. what is the result?
+
+```{r}
+vegetables <- append(vegetables, list("Langka", "Pechay", "Chili", "Ginger"), after = 5) 
+vegetables
+```
+
+<br>
+
+##### d. How many data points does your vegetable list have?
+
+```{r}
+# I have 16 data points
+```
+
+```{r}
+length(vegetables)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
