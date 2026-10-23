@@ -249,6 +249,7 @@ grades[grades$remarks == "Failed", c("name", "average")]
 # First, I would add a drop column (grades$drop <- grades$midterm - grades$final) and a remarks column based on the average, so each student is marked Passed or Failed. Then I would sort by drop and by midterm with order() and check which list has the Failed students near the top. In this data, Eli has the lowest midterm (70) and is the only one who fails, while Dex, the only student whose score dropped, still passed. So a low midterm looks like the bigger factor, though five students are too few to be sure.
 ```
 
+<br>
 
 ### Conclusion:
 
