@@ -1,0 +1,207 @@
+---
+title: "RExercise#9_Virgo"
+author: "Erlle Virgo"
+date: "r Sys.date"
+output: html_document
+---
+
+#### Part A - Creating Data Frames
+
+<br>
+
+##### Question #1:
+
+<br>
+
+###### a.
+```{r}
+shoes <- data.frame(
+  Gender   = c("Female", "Female", "Female", "Male", "Male", "Male"),
+  ShoeSize = c(6, 7, 8, 10, 11, 12),
+  Height   = c(60, 63, 65, 69, 71, 74)
+)
+
+write.csv(shoes, "shoesize.csv", row.names = FALSE)
+```
+
+<br>
+
+###### b.
+
+```{r}
+shoes <= read.csv("shoesize.csv")
+tail(shoes, 5)
+```
+
+<br>
+
+###### c.
+
+```{r}
+str(shoes)
+shoes
+```
+
+<br>
+
+###### d.
+
+```{r}
+dim(shoes)
+nrow(shoes)
+ncol(shoes)
+```
+
+<br>
+
+###### e.
+
+```{r}
+summary(shoes)
+
+# str() shows the structure of an object, its type, the number of rows and columns, each column’s data type, and the first few values.
+
+# summary() shows the statistics, for number columns, it gives the minimum, 1st quartile, median, mean, 3rd quartile, and maximum. For text columns, it only gives the length, class, and mode.
+```
+
+<br>
+
+###### f.
+
+```{r}
+females <- subset(shoes, Gender == "Female", select = c(Gender, ShoeSize, Height))
+
+males <- subset(shoes, Gender == "Male",   select = c(Gender, ShoeSize, Height))
+
+females
+males
+```
+
+<br>
+
+###### g. 
+
+```{r}
+mean(shoes$ShoeSize)
+mean(shoes$Height)
+```
+
+<br>
+
+###### h.
+
+```{r}
+cor(shoes$ShoeSize, shoes$Height)
+```
+
+<br>
+
+##### Question #2: 
+
+```{r}
+shoes$Gender <- factor(shoes$Gender, levels = c("Female", "Male"))
+
+str (shoes$Gender)
+levels(shoes$Gender)
+```
+
+<br>
+
+##### Question #3:
+
+```{r}
+# When you knit, R uses the .Rmd file’s own folder as the working directory. So read.csv("shoesize.csv") always looks next to the document in wherever your console was. This makes the file easy to share, anyone with the folder can knit it without changing paths.
+```
+
+<br>
+
+##### Question #4:
+
+```{r}
+str(shoes)
+
+# R reads Gender as plain text (chr), not as a category, so you have to convert it yourself with factor(). If a number column like ShoeSize gets read as text because of one odd entry like “N/A”, then mean() and cor() won’t work, and R will sort and compare the values like words instead of numbers. 
+
+# That means “9” would count as bigger than “11”, and you’d get wrong answers without any error. Running str() right after you import the file helps you catch this early.
+```
+
+<br>
+
+##### Question #5:
+
+```{r}
+# head() only show the first rows, so it can't show problems at the end of the file. On the other hand, tail() shows the last rows of the data so it spots the problems at the end of the file.
+```
+
+<br>
+
+##### Question #6:
+
+<br>
+
+###### a.
+
+```{r}
+cor(shoes$ShoeSize, shoes$Height)
+```
+
+<br>
+
+###### b.
+
+```{r}
+shoes[shoes$ShoeSize >= 11, ]
+```
+
+<br>
+
+##### Question #7:
+
+```{r}
+mean(females$Height);  mean(males$Height)
+mean(females$ShoeSize); mean(males$ShoeSize)
+
+aggregate(cbind(Height, ShoeSize) ~ Gender, data = shoes, FUN = mean)
+```
+
+<br>
+
+```{r}
+cor(females$ShoeSize, females$Height)
+cor(males$ShoeSize, males$Height)
+
+# Usually, the male group has a higher average height and a higher average shoe size than the female group, so both variables go up together across the two groups.
+```
+
+<br>
+
+```{r}
+# Look at the correlations inside each gender. If both are still positive, shoes size and height go together even within each group. If they are weak inside the groups but strong overall, the link comes mostly from the gap between males and females.
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
