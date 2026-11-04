@@ -1,0 +1,204 @@
+---
+title: "RExercise#8_Virgo"
+author: "Erlle Virgo"
+date: "2026-11-04"
+output: html_document
+---
+
+#### Part A - Creating Data Frames
+
+<br>
+
+##### Question #1:
+
+###### a.
+```{r}
+scores <- c(Ana = 78, Ben = 92, Cid = 85, Dex = 92, Eli = 67, Fay = 88, Gio = 74)
+scores 
+```
+
+<br>
+
+###### b.
+```{r}
+sort(scores)
+sort(scores, decreasing = TRUE)
+```
+
+<br>
+
+###### c.
+```{r}
+sorted_asc <- sort(scores)
+sorted_asc
+```
+
+<br>
+
+###### d.
+```{r}
+subjects <- c("Science", "Math", "English", "Filipino", "PE")
+incomplete <- c(85, NA, 90, 70, NA, 95)
+```
+
+<br>
+
+###### e.
+```{r}
+sort(subjects)
+```
+
+<br>
+
+###### f.
+```{r}
+sort(incomplete)
+sort(incomplete, na.last = TRUE)
+```
+
+<br>
+
+##### Question #2:
+
+```{r}
+# Yes, the names stayed with their scores. This matters because a score only means something when it’s linked to the right person. If the names didn’t follow the sorted scores, the top score can end up next to the wrong student.
+```
+
+<br>
+
+##### Question #3:
+
+```{r}
+# Yes, by default sort() leaves out NA values and doesn’t tell you. So if you used sort(x)[1] to get the lowest score, it would look fine but ignore the students with missing scores. The “lowest” would show as 70, even though two students have no score at all. That gives the wrong idea, so look for NAs first, for example with sum(is.na(x)) or anyNA(x).
+```
+
+##### Question #4:
+
+```{r}
+order(scores)
+sort(scores)
+```
+
+<br>
+
+```{r}
+scores[order(scores)]
+
+# Yes, they have the same values. order(scores) gives the positions of the smallest to largest values, so using it to index scores pulls out the values in ascending order.
+```
+
+<br>
+
+##### Question #5:
+
+```{r}
+
+students <- data.frame(
+    name = c("Ana", "Ben", "Cid", "Dex", "Eli", "Fay", "Gio"),
+    score = c (78, 92, 85, 92, 67, 88, 74),
+    section = c("A", "B", "A", "B", "A", "B", "A")
+)
+
+students
+```
+
+<br>
+
+###### a.
+
+```{r}
+students[order(students$score), ]
+```
+
+
+<br>
+
+###### b. 
+```{r}
+students[order(students$score, decreasing = TRUE), ]
+```
+
+<br>
+
+##### Question #6:
+
+```{r}
+# order(scores) gives you the positions of the scores, listed from the lowest score to the highest. For example, 5 means the lowest score is the fifth item (Eli), and 7 means the next lowest is the seventh item (Gio). These numbers are just positions, so they don’t tell you the actual scores or names. To get something useful, put them inside the brackets to sort your data, like scores[order(scores)] or students[order(students$score), ].
+```
+
+<br>
+
+##### Question #7:
+
+```{r}
+# sort() only works on one list of values. A table has several columns that need to stay matched, and sorting just one would mix up the rows. order() is better because it gives you the new positions, and you can use them on the whole table with students[order(students$score), ]. In that way, all the columns move as one, so each student keeps their own score and section.
+```
+
+<br>
+
+##### Question #8:
+
+```{r}
+rank(scores)
+cbind(scores, rank = rank(scores))
+```
+
+<br>
+
+###### a.
+
+```{r}
+# Ben and Dex received the same rank of 6.5
+```
+
+<br>
+
+###### b.
+
+```{r}
+# By default, rank() handles ties by averaging. Ben and Dex are tied for the 6th and 7th spots, so R adds those positions and divides by 2, (6 + 7) / 2 = 6.5, and gives that number to both.
+```
+
+<br>
+
+##### Question #8:
+
+###### a.
+
+```{r}
+sales <- data.frame( 
+  employee = c("Rey", "Sam", "Tin", "Uma", "Val"), 
+  units_sold = c(120, 145, 145, 98, 130)
+)
+
+sales$rank <- rank(-sales$units_sold)
+sales
+```
+
+<br>
+
+###### b.
+```{r}
+sales[order(sales$units_sold, decreasing = TRUE), ]
+```
+
+<br>
+
+##### Question #9:
+
+```{r}
+# No, order() alone can't solve it. It tells you which row to put first, second, and so on when you're sorting, which is good for showing a list, but it doesn’t tell you how each person did. It also can’t show ties. Sam and Tin both sold 145, but order() still puts one above the other. rank() gives each person a place, shows ties (1.5 and 1.5), and keeps that place next to the original row. So rank() tells you how each person did, while order() tells you what order to show the rows in.
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
