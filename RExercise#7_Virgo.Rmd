@@ -1,0 +1,151 @@
+---
+title: "RExercise#7_Virgo"
+author: "Erlle Virgo"
+date: "r Sys.Date() "
+output: html_document
+---
+
+#### Part A - Creating Data Frames
+
+<br>
+
+##### Question #1:
+
+```{r}
+Respondent <- 1:20
+Sex <- c(2,2,1,2,2,2,2,2,2,2,1,2,2,2,2,2,2,2,1,2)
+FathersOccupation <- c(1,3,3,3,1,2,3,1,1,1,3,2,1,3,3,1,3,1,2,1)
+PersonsAtHome <- c(5,7,3,8,5,9,6,7,8,4,7,5,4,7,8,8,3,11,7,6)
+SiblingsAtSchool  <- c(6,4,4,1,2,1,5,3,1,2,3,2,5,5,2,1,2,5,3,2)
+TypesOfHouses <- c(1,2,3,1,1,3,3,1,2,3,2,3,2,2,3,3,3,3,3,2)
+
+
+length(Respondent) 
+length(Sex) 
+length(FathersOccupation) 
+length(PersonsAtHome)
+length(SiblingsAtSchool) 
+length(TypesOfHouses)
+
+survey <- data.frame(Respondent, Sex, FathersOccupation, PersonsAtHome, SiblingsAtSchool, TypesOfHouses)
+
+options(width = 120)
+
+survey
+```
+
+<br>
+
+###### a.
+```{r}
+str(survey)
+summary(survey)
+```
+
+<br>
+
+###### b.
+```{r}
+dim(survey)
+```
+
+<br>
+
+###### c.
+```{r}
+survey$Sex <- factor(survey$Sex, levels = 1:2, labels = c("Male", "Female"))
+
+survey$TypesOfHouses <- factor(survey$TypesOfHouses, levels = 1:3, labels = c("Wood", "Semi-Concrete", "Concrete"))
+
+survey$TypesOfHouses <- factor(survey$TypesOfHouses, levels = 1:3, labels = c("Wood", "Semi-Concrete", "Concrete"))
+```
+
+<br>
+
+###### d.
+```{r}
+colMeans(survey[, c("Respondent", "PersonsAtHome", "SiblingsAtSchool")])
+```
+
+<br>
+
+###### e. 
+```{r}
+survey[1:5, ]
+```
+
+<br>
+
+###### f.
+```{r}
+types_house <- survey$TypesofHouses
+```
+
+<br>
+
+###### g.
+```{r}
+subset(survey, Sex == "Male" & FathersOccupation == "Farmer")
+```
+
+<br>
+
+###### h.
+```{r}
+subset(survey, Sex == "Female" & SiblingsAtSchool >= 5)
+```
+
+<br>
+
+##### Question #2:
+
+```{r}
+# Because all six columns has the same 20 people, so each row has to be the same person in every column. Checking every column that has 20 values makes sure each row belongs to one person.
+```
+
+<br>
+
+##### Question #3:
+
+```{r}
+# Sex, FathersOccupation, and TypesOfHouses are the categories that happens to be written as numbers. The numbers are only labels, so 2 does not mean “twice”. PersonsAtHome and SiblingsAtSchool are real counts, and Respondent is an ID number. We're only referring to the legend.
+```
+
+<br>
+
+##### Question #4:
+
+```{r}
+# When you filter Sex == 1, you get respondents 3, 11, and 19, but the Sex column just shows “1.” Without the legend, you can’t tell if “1” means “female,” “first,” or “yes.” Codes alone can be hard to understand, and mix-ups happens when the meanings are stored in  different way. Using labels like Male and Female makes the results clear right away.
+```
+
+<br>
+
+##### Question #5:
+
+```{r}
+# sum(survey$Sex == 1) shows there are 3 males and 17 females within the 20 respondents. it’s hard to create conclusions with this small samples about a larger group. There are only 3 males, so if just one person is added or removed, the male share changes a lot. That’s why comparing males and females doesn’t work here. No male farmers doesn’t tell us much, because 3 people is too small for a group to show anything. Most of the people in the sample are female, and we don’t know how they got picked, so what we see is only about these 20 people.
+```
+
+<br>
+
+##### Question #6:
+
+```{r}
+#R stores these columns as plain numbers, so summary() gives number results like the average. R only sees how the data is saved, not what it means. So to fix this, use factor() to tell R what the numbers stand for. After that, summary() shows how many are in each group, like Male 3 and Female 17.
+```
+
+<br>
+
+##### Question $7:
+
+```{r}
+# The average of PersonsAtHome which is 6.4 is a real count, so it tells us a home has 6 people. The average of Sex is 1.85, which does not make sense because 1 and 2 are only names for groups and not male or female.
+```
+
+
+
+
+
+
+
