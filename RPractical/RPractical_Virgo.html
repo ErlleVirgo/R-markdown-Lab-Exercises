@@ -564,12 +564,13 @@ result</code></pre>
 )
 
 new_students$average  &lt;- round((new_students$midterm + new_students$final) / 2, 1)
+
 new_students$passed   &lt;- new_students$average &gt;= 70 &amp; new_students$attendance &gt;= 75
-new_students$standing &lt;- ifelse(new_students$average &gt;= 90, &quot;Honors&quot;,
-                         ifelse(new_students$average &gt;= 75, &quot;Good&quot;, &quot;Needs Support&quot;))
+
+new_students$standing &lt;- ifelse(new_students$average &gt;= 90, &quot;Honors&quot;, ifelse(new_students$average &gt;= 75, &quot;Good&quot;, &quot;Needs Support&quot;))
 
 students_all &lt;- rbind(students, new_students)
-print(students_all)</code></pre>
+students_all</code></pre>
 <pre><code>##    id  name sex section midterm final attendance average passed      standing
 ## 1   1 Alice   F       A      78    82         95    80.0   TRUE          Good
 ## 2   2 Bruno   M       B      85    79         88    82.0   TRUE          Good
@@ -581,6 +582,102 @@ print(students_all)</code></pre>
 ## 8   8  Hiro   M       B      59    65         60    62.0  FALSE Needs Support
 ## 9   9  Ines   F       C      81    84         92    82.5   TRUE          Good
 ## 10 10 Jamal   M       A      70    68         80    69.0  FALSE Needs Support</code></pre>
+<p><br></p>
+</div>
+<div id="c2" class="section level5">
+<h5>C2</h5>
+<pre class="r"><code>quiz &lt;- c(8, 7, 10, 6, 7, 9, 10, 5, 8, 6)
+students_all &lt;- cbind(students_all, quiz = quiz)
+class(students_all)</code></pre>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<p><br></p>
+</div>
+<div id="c3" class="section level5">
+<h5>C3</h5>
+<pre class="r"><code>m &lt;- cbind(midterm = students_all$midterm, final = students_all$final)
+
+m &lt;- rbind(m, mean = colMeans(m))
+print(m)</code></pre>
+<pre><code>##      midterm final
+##         78.0  82.0
+##         85.0  79.0
+##         92.0  96.0
+##         67.0  71.0
+##         74.0  80.0
+##         88.0  91.0
+##         95.0  93.0
+##         59.0  65.0
+##         81.0  84.0
+##         70.0  68.0
+## mean    78.9  80.9</code></pre>
+<p><br></p>
+</div>
+<div id="c4" class="section level5">
+<h5>C4</h5>
+<pre class="r"><code># rbind() R pairs up the columns by name. If the column names don’t match, R gets gives you the error “names do not match previous names.” That’s where tryCatch() helps, it catches the error so your script doesn’t quit. Instead, it prints a message and keeps going.</code></pre>
+<p><br></p>
+</div>
+</div>
+<div id="part-d-subsetting" class="section level4">
+<h4>Part D: Subsetting</h4>
+<div id="d1" class="section level5">
+<h5>D1</h5>
+<pre class="r"><code>students_all$name</code></pre>
+<pre><code>##  [1] &quot;Alice&quot; &quot;Bruno&quot; &quot;Chen&quot;  &quot;Dana&quot;  &quot;Elif&quot;  &quot;Farid&quot; &quot;Grace&quot; &quot;Hiro&quot;  &quot;Ines&quot; 
+## [10] &quot;Jamal&quot;</code></pre>
+<pre class="r"><code>students_all[[&quot;name&quot;]]</code></pre>
+<pre><code>##  [1] &quot;Alice&quot; &quot;Bruno&quot; &quot;Chen&quot;  &quot;Dana&quot;  &quot;Elif&quot;  &quot;Farid&quot; &quot;Grace&quot; &quot;Hiro&quot;  &quot;Ines&quot; 
+## [10] &quot;Jamal&quot;</code></pre>
+<pre class="r"><code>students_all[, &quot;name&quot;]</code></pre>
+<pre><code>##  [1] &quot;Alice&quot; &quot;Bruno&quot; &quot;Chen&quot;  &quot;Dana&quot;  &quot;Elif&quot;  &quot;Farid&quot; &quot;Grace&quot; &quot;Hiro&quot;  &quot;Ines&quot; 
+## [10] &quot;Jamal&quot;</code></pre>
+<p><br></p>
+</div>
+<div id="d2" class="section level5">
+<h5>D2</h5>
+<pre class="r"><code>students_all[2:5, c(&quot;name&quot;, &quot;midterm&quot;, &quot;final&quot;)]</code></pre>
+<pre><code>##    name midterm final
+## 2 Bruno      85    79
+## 3  Chen      92    96
+## 4  Dana      67    71
+## 5  Elif      74    80</code></pre>
+<p><br></p>
+</div>
+<div id="d3" class="section level5">
+<h5>D3</h5>
+<pre class="r"><code>students_all[students_all$attendance &gt; 90, ]</code></pre>
+<pre><code>##   id  name sex section midterm final attendance average passed standing quiz
+## 1  1 Alice   F       A      78    82         95    80.0   TRUE     Good    8
+## 3  3  Chen   M       A      92    96        100    94.0   TRUE   Honors   10
+## 7  7 Grace   F       A      95    93         98    94.0   TRUE   Honors   10
+## 9  9  Ines   F       C      81    84         92    82.5   TRUE     Good    8</code></pre>
+<p><br></p>
+</div>
+<div id="d4" class="section level5">
+<h5>D4</h5>
+<pre class="r"><code>subset(students_all, sex == &quot;F&quot; &amp; section %in% c(&quot;A&quot;, &quot;C&quot;) &amp; final &gt;= 75, select = c(name, section, final))</code></pre>
+<pre><code>##    name section final
+## 1 Alice       A    82
+## 7 Grace       A    93
+## 9  Ines       C    84</code></pre>
+<p><br></p>
+</div>
+<div id="d5" class="section level5">
+<h5>D5</h5>
+<pre class="r"><code>students_all$name[which.max(students_all$average)]</code></pre>
+<pre><code>## [1] &quot;Chen&quot;</code></pre>
+<pre class="r"><code>students_all$name[which.min(students_all$average)]</code></pre>
+<pre><code>## [1] &quot;Hiro&quot;</code></pre>
+<p><br></p>
+</div>
+<div id="d6" class="section level5">
+<h5>D6</h5>
+<pre class="r"><code>sorted &lt;- students_all[order(students_all$average, decreasing = TRUE), ]
+head(sorted, 3)</code></pre>
+<pre><code>##   id  name sex section midterm final attendance average passed standing quiz
+## 3  3  Chen   M       A      92    96        100    94.0   TRUE   Honors   10
+## 7  7 Grace   F       A      95    93         98    94.0   TRUE   Honors   10
+## 6  6 Farid   M       C      88    91         85    89.5   TRUE     Good    9</code></pre>
 </div>
 </div>
 

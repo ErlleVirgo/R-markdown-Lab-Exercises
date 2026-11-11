@@ -2,7 +2,7 @@
 title: "RPractical_Virgo"
 author: "Erlle Benjamin R. Virgo"
 date: "2026-11-11"
-output: html_document
+output: pdf_document
 ---
 
 #### Part A - Basic Operations
@@ -209,22 +209,122 @@ print(m)
 
 ##### C4
 ```{r}
-# rbind() 
+# rbind() R pairs up the columns by name. If the column names don’t match, R gets gives you the error “names do not match previous names.” That’s where tryCatch() helps, it catches the error so your script doesn’t quit. Instead, it prints a message and keeps going.
 ```
 
+<br>
 
+#### Part D: Subsetting
 
+##### D1
 
+```{r}
+students_all$name
+students_all[["name"]]
+students_all[, "name"]
+```
 
+<br>
 
+##### D2
 
+```{r}
+students_all[2:5, c("name", "midterm", "final")]
+```
 
+<br>
 
+##### D3
 
+```{r}
+students_all[students_all$attendance > 90, ]
+```
 
+<br>
 
+##### D4
 
+```{r}
+subset(students_all, sex == "F" & section %in% c("A", "C") & final >= 75, select = c(name, section, final))
+```
 
+<br>
+
+##### D5
+
+```{r}
+students_all$name[which.max(students_all$average)]
+students_all$name[which.min(students_all$average)]
+```
+
+<br>
+
+##### D6
+
+```{r}
+sorted <- students_all[order(students_all$average, decreasing = TRUE), ]
+
+head(sorted, 3)
+```
+
+<br>
+
+#### Part E: Basic Factors
+
+<br>
+
+##### E1
+
+```{r}
+students_all$section <- factor(students_all$section)
+students_all$sex <- factor(students_all$sex)
+
+levels(students_all$section)
+levels(students_all$sex)
+```
+
+<br>
+
+##### E2
+
+```{r}
+table(students_all$sex)
+table(students_all$section)
+table(students_all$sex, students_all$section)
+```
+```{r}
+# The table shows sex on the left and section on top. Each box counts the students in that group. For example, section A has 2 girls (Alice and Grace), and section C has 1 boy (Farid).
+```
+
+<br>
+
+##### E3  
+
+```{r}
+as.integer(students_all$sex)
+```
+
+<br>
+
+##### E4
+
+```{r}
+students_all$sex_label <- factor(students_all$sex, levels = c("F", "M"), labels = c("Female", "Male"))
+
+levels(students_all$sex_label)
+```
+
+<br>
+
+##### E5
+
+```{r}
+summary(students_all$sex_label)
+
+mean(students_all$average[students_all$sex_label == "Female"])
+
+mean(students_all$average[students_all$sex_label == "Male"])
+```
 
 
 
